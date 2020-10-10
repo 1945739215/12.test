@@ -27,7 +27,7 @@ public interface TablesMapper extends SysMapper<Tables> {
     @Select("SELECT tableName FROM TABLES WHERE tablesId =#{i}")
     String selectNameByid(@Param("i") int i);
 
-    @Update("update informs set tablesId =#{newTablesId} and tableName =#{tableNewName} where tablesId=#{tablesId}")
+    @Update("update tables set tablesId =#{newTablesId} and tableName =#{tableNewName} where tablesId=#{tablesId}")
     Integer Update(@Param("tablesId")int tablesId, @Param("newTablesId")int newTablesId,
                    @Param("tableNewName")String tableNewName);
 

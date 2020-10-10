@@ -23,6 +23,8 @@ public class AddController {
     TitlesService titlesService;
     @Autowired
     ShowService showService;
+    @Autowired
+
     //发布新模块
     @RequestMapping(value = "/CreateTable",method = RequestMethod.POST)
     public Result CreateTable(@RequestBody ResponBean responBean)
@@ -101,7 +103,7 @@ public class AddController {
 
 
     //合并导航栏
-    @RequestMapping(value = "/merge",method = RequestMethod.POST)
+        @RequestMapping(value = "/merge",method = RequestMethod.POST)
     public Result merge(@RequestBody  List<Titles>  tablesId,String tableNewName)
     {
         System.out.println("合并导航栏");
@@ -118,6 +120,26 @@ public class AddController {
             }
             //根据导航栏id 修改导航栏id和名字
             tableService.Update(tablesId.get(i).getTablesId(),newTablesId,tableNewName);
+        }
+        return Result.success();
+    }
+
+    //合并侧边栏    注意可以跨导航栏合并   修改informs中的 侧边栏id
+    @RequestMapping(value = "/mergeSide",method = RequestMethod.POST)
+    public Result mergeSide(@RequestBody  List<Titles>  titlesId,String titleNewName)
+    {
+        System.out.println("合并侧边栏");
+        for (int i=0;i<titlesId.size();i++)
+        {
+
+            //获取最大的那个侧边栏id
+            int newTitlesId = titlesId.get(i = titlesId.size() - 1).getTitlesId();
+
+            //根据侧边栏id  修改侧边栏id和名字
+            titlesService.UpdateTitles(titlesId.get(i).getTitlesId(), newTitlesId, titleNewName);
+
+            //根据侧边栏id 修改侧边栏id
+            titlesService.UpdateInforms(titlesId.get(i).getTitlesId(),newTitlesId);
         }
         return Result.success();
     }

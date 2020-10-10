@@ -58,4 +58,12 @@ public class TitlesService {
     public List<Titles> SelectIdByid(Integer tablesId) {
         return titlesMapper.SelectIdById(tablesId);
     }
+
+    public Integer UpdateTitles(Integer titlesId, int newTitlesId, String titleNewName) {
+        return titlesMapper.UpdateTitles(titlesId,newTitlesId,titleNewName);
+    }
+
+    public Integer UpdateInforms(Integer titlesId, int newTitlesId) {
+        return titlesMapper.UpdateInforms(titlesId,newTitlesId);
+    }
 }

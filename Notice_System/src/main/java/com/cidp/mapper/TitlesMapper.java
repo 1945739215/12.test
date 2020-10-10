@@ -23,6 +23,7 @@ public interface TitlesMapper  extends SysMapper<Titles>{
     @Update("UPDATE titles SET titleName=#{titleNewName} WHERE titleName=#{titleName}")
     void ChangeTitle(@Param("titleName") String titleName, @Param("titleNewName") String titleNewName);
 
+
     @Delete("DELETE FROM titles WHERE tablesId=#{id}")
     void DeleteTitleByTablesId(@Param("id") int id);
     @Delete("DELETE FROM titles WHERE titleName=#{titleName}")
@@ -37,9 +38,14 @@ public interface TitlesMapper  extends SysMapper<Titles>{
     @Select("SELECT titleName FROM titles WHERE tablesId=#{id}")
     List<Titles> selectAllTitlesNameByid(@Param("id") int id);
 
-    @Update("update informs set tablesId =#{newTablesId} and tableName =#{tableNewName} where titlesId=#{titlesId}")
+    @Update("update titles set tablesId =#{newTablesId} and tableName =#{tableNewName} where titlesId=#{titlesId}")
     Integer Update(@Param("titlesId")int titlesId, @Param("newTablesId")int newTablesId,
                    @Param("tableNewName")String tableNewName);
 
+    @Update("update titles set titlesId =#{newTitlesId} and titleName =#{titleNewName} where titlesId=#{titlesId}")
+    Integer UpdateTitles(@Param("titlesId")Integer titlesId,@Param("newTitlesId") int newTitlesId,
+                         @Param("titleNewName")String titleNewName);
 
+    @Update("update informs set titlesId =#{newTitlesId} where titlesId=#{titlesId}")
+    Integer UpdateInforms(Integer titlesId, int newTitlesId);
 }
