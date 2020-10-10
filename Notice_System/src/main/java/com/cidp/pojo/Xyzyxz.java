@@ -12,6 +12,15 @@ public class Xyzyxz {
     private String fileName;
     private String fileUrl;
     private String fileDate;
+    private String parts;
+
+    public String getParts() {
+        return parts;
+    }
+
+    public void setParts(String parts) {
+        this.parts = parts;
+    }
 
     public Integer getFileId() {
         return fileId;
@@ -62,6 +71,7 @@ public class Xyzyxz {
                 ", fileName='" + fileName + '\'' +
                 ", fileUrl='" + fileUrl + '\'' +
                 ", fileDate='" + fileDate + '\'' +
+                ", parts='" + parts + '\'' +
                 '}';
     }
 }

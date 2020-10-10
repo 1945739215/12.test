@@ -12,6 +12,10 @@ public interface TitlesMapper  extends SysMapper<Titles>{
 
     @Select("SELECT titlesId FROM titles WHERE titleName=#{titleName}")
     int SelectIdByName(@Param("titleName") String titleName);
+  /*  @Select("SELECT titlesId FROM titles WHERE tablesId=#{tablesId}")
+    int SelectIdById(Integer tablesId);*/
+  @Select("SELECT titlesId FROM titles WHERE tablesId=#{tablesId}")
+  List<Titles> SelectIdById(Integer tablesId);
 
     @Insert("INSERT INTO titles(tablesId,titleName,tableName)VALUES(#{id},#{titleName},#{tableName})")
     void AddTitle(@Param("id") int id, @Param("titleName") String titleName,@Param("tableName") String tableName);
@@ -32,4 +36,10 @@ public interface TitlesMapper  extends SysMapper<Titles>{
     List<Titles> selectAllTitlesName();
     @Select("SELECT titleName FROM titles WHERE tablesId=#{id}")
     List<Titles> selectAllTitlesNameByid(@Param("id") int id);
+
+    @Update("update informs set tablesId =#{newTablesId} and tableName =#{tableNewName} where titlesId=#{titlesId}")
+    Integer Update(@Param("titlesId")int titlesId, @Param("newTablesId")int newTablesId,
+                   @Param("tableNewName")String tableNewName);
+
+
 }

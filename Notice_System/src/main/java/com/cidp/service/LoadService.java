@@ -16,8 +16,8 @@ public class LoadService {
     LoadMapper loadMapper;
 
 
-    public int insertfile(String fileName, String fileUrl, String fileDate,String fileTitle) {
-        return  loadMapper.insertfile(fileName, fileUrl,fileDate,fileTitle);
+    public int insertfile(String fileName, String fileUrl, String fileDate,String fileTitle,String parts) {
+        return  loadMapper.insertfile(fileName, fileUrl,fileDate,fileTitle,parts);
     }
 
     public Integer selectByFileName(String fileName) {
@@ -29,6 +29,12 @@ public class LoadService {
         xyzyList= (List<Xyzyxz>) loadMapper.selectall();
         return xyzyList;
     }
+    public List<Xyzyxz> SelectByParts(String parts) {
+        List<Xyzyxz> xyzyList=(List<Xyzyxz>) loadMapper.SelectByParts(parts);
+        return xyzyList;
+    }
+
+
 
     public int DeleteById(Integer id) {
         return loadMapper.deletebyid(id);
@@ -45,4 +51,6 @@ public class LoadService {
     public Integer selectByFileTitle(String fileTitle) {
         return loadMapper.selectByFileTitle(fileTitle);
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.cidp.controller;
 
 
+import com.cidp.pojo.Tables;
 import com.cidp.pojo.Titles;
 import com.cidp.pojo.result.ResponBean;
 import com.cidp.pojo.result.Result;
@@ -73,19 +74,19 @@ public class AddController {
     public Result deleteTable(@RequestBody ResponBean responBean)
     {
         System.out.println("删除导航栏："+responBean.getTableName());
-        int ID=tableService.SelectTableId(responBean.getTableName());
+        int ID=tableService.SelectTableId(responBean.getTableName());//获取导航栏id
         List<Titles> titlesList=new ArrayList<>();
-        titlesList=titlesService.selectAllTitlesNameById(ID);
+        titlesList=titlesService.selectAllTitlesNameById(ID);//获取所有侧边栏名字
         for (int i=0;i<titlesList.size();i++)
         {
            // String name=titlesList.get(i)
             System.out.println(titlesList.get(i).toString());
-            int TitleId=titlesService.SelectIdByname(titlesList.get(i).getTitleName());
+            int TitleId=titlesService.SelectIdByname(titlesList.get(i).getTitleName());//根据侧边栏名字 获取侧边栏id
 
-            showService.deleteinformByTitleId(TitleId);
-            titlesService.DeleteTitleByName(titlesList.get(i).getTitleName());
+            showService.deleteinformByTitleId(TitleId);  //根据侧边栏id  删除  inform
+            titlesService.DeleteTitleByName(titlesList.get(i).getTitleName());//根据侧边栏名字删除 侧边栏
         }
-        tableService.DeleteTable(responBean.getTableName());
+        tableService.DeleteTable(responBean.getTableName());//获取导航栏名字  删除导航栏
         return Result.success();
 
 
@@ -95,6 +96,29 @@ public class AddController {
     {
         System.out.println("删除侧边栏"+responBean.getTitleName());
         titlesService.DeleteTitleByName(responBean.getTitleName());
+        return Result.success();
+    }
+
+
+    //合并导航栏
+    @RequestMapping(value = "/merge",method = RequestMethod.POST)
+    public Result merge(@RequestBody  List<Titles>  tablesId,String tableNewName)
+    {
+        System.out.println("合并导航栏");
+        for (int i=0;i<tablesId.size();i++)
+        {
+            List<Titles> titlesIdList=new ArrayList<>();
+            //根据导航栏的id 获取多个侧边栏id
+            titlesIdList= titlesService.SelectIdByid(tablesId.get(i).getTablesId());
+            //获取最大的那个导航栏id
+            int newTablesId = tablesId.get(i = tablesId.size() - 1).getTablesId();
+            for(int j=0;j<titlesIdList.size();j++) {
+                //根据侧边栏id  修改导航栏id和名字
+                titlesService.Update(titlesIdList.get(j).getTitlesId(), newTablesId, tableNewName);
+            }
+            //根据导航栏id 修改导航栏id和名字
+            tableService.Update(tablesId.get(i).getTablesId(),newTablesId,tableNewName);
+        }
         return Result.success();
     }
 

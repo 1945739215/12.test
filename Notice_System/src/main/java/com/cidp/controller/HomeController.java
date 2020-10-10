@@ -24,9 +24,11 @@ public class HomeController {
     XyxwService xyxwService;
 
 
-//浏览次数   下载次数   上，下一篇    GitHub     部署项目linux(改)
+    //浏览次数   下载次数   上，下一篇(显示object2的informname)   GitHub
+    //下载，上传分区，挪位置，合并，搜索
+    //权限   部署项目linux(改)
 
-
+    //浏览次数 ， 上传多加一个parts，显示的时候传值 parts, 合并 多选传多个tablesid的数组，和新的tablesname
 
 
     @RequestMapping(value = "/tzgg",method = RequestMethod.POST)//显示通知公告
@@ -114,11 +116,5 @@ public class HomeController {
         System.out.println(threeXyxw.size());
         return Result.SuccesswithObject("success",threeXyxw);
     }
-
-
-
-
-
-
 
 }

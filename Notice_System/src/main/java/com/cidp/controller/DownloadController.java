@@ -35,7 +35,7 @@ public class    DownloadController {
         System.out.println(file);
         response.setContentType("application/force-download");//1.设置文件ContentType类型，这样设置，会自动判断下载文件类型   下载弹出的确定保存提示框
         response.addHeader("Content-Disposition","attachment;fileName="+xyzyxz.getFileName());
-//        response.setContentLength((int)file.length());
+//      response.setContentLength((int)file.length());
         response.setContentType("multipart/form-data");
         if (file.getParentFile().exists()) {
 

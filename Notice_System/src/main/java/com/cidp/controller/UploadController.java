@@ -24,10 +24,10 @@ public class UploadController {
     @Autowired
     LoadService loadService;
 
-     //多文件上传   传进项目里面
+     //多文件上传  传进项目里面
         @PostMapping("/uploadfile")
         //需要前端  传文件    标题   和  文件上传时间（字符型）
-        public Result fileUpload(MultipartFile[] files, Model model, String fileDate, String fileTitle) {
+        public Result fileUpload(MultipartFile[] files, Model model, String fileDate, String fileTitle,String parts) {
             boolean isSuccess = true;
             System.out.println(fileTitle);
 
@@ -38,7 +38,7 @@ public class UploadController {
 
                         String fileName = file.getOriginalFilename();//文件名
                         String suffixName = fileName.substring(fileName.lastIndexOf("."));//后缀
-                        //  String filePath = "D://xyzyxz-files//";
+                        // String filePath = "D://xyzyxz-files//";
                         String filePath =   "static/uploadfile/";
                         System.out.println(filePath);
 
@@ -64,15 +64,19 @@ public class UploadController {
                         fileUpload.setFileUrl(VideoConfig.WINDOWVIDEOHOME+filePath + fileName);
                         fileUpload.setFileDate(fileDate);
                         fileUpload.setFileTitle(fileTitle);
+                        fileUpload.setParts(parts);
 
                         System.out.println(fileUpload);
                         if (loadService.selectByFileTitle(fileUpload.getFileTitle())!=null) {
                             isSuccess = false;
                             return Result.error("文件已存在,不可以重复上传");
                         }else{
-                            System.out.println("判断上传是否成功");
-                            if (loadService.insertfile(fileUpload.getFileName(), fileUpload.getFileDate(), fileUpload.getFileUrl(), fileUpload.getFileTitle()) < 1)
-                                isSuccess = false;
+
+                                System.out.println("判断上传是否成功");
+                                if (loadService.insertfile(fileUpload.getFileName(), fileUpload.getFileDate(), fileUpload.getFileUrl(),
+                                        fileUpload.getFileTitle(),fileUpload.getParts()) < 1)
+                                    isSuccess = false;
+
                         }
                     }
                 } else if (files.length == 0) {
@@ -180,12 +184,13 @@ public class UploadController {
 
 
 
-    //显示上传的文件（url:学院资源下载）
+    //显示上传的文件   （url:学院资源下载）
     @RequestMapping(value = "/xyzyxzfile",method = RequestMethod.POST)
-    public Result showXyzyxz()
+    public Result showXyzyxz( String parts)
     {
+        System.out.println(parts);
         List<Xyzyxz> showXyzyxz=new ArrayList<>();
-        showXyzyxz=loadService.Selectall();
+        showXyzyxz = loadService.SelectByParts(parts);
         System.out.println(showXyzyxz);
         return Result.SuccesswithObject("success",showXyzyxz);
     }

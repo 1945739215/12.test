@@ -57,5 +57,11 @@ public class TableService {
         return tablesMapper.CheckExist(tableName);
     }
 
+    public Integer Update(Integer tablesId, int newTablesId, String tableNewName) {
+        return tablesMapper.Update(tablesId,newTablesId,tableNewName);
+    }
+
+
+
 
 }
