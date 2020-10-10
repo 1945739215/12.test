@@ -19,4 +19,9 @@ public class XyxwService {
         xyxwList=xyxwMapper.selectall();
         return xyxwList;
     }
+
+
+    public Integer updateCount() {
+        return xyxwMapper.updateCount1();
+    }
 }

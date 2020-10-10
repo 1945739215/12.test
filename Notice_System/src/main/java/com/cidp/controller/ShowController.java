@@ -135,11 +135,42 @@ public class ShowController {
     public Result showInforms(@RequestBody Titles titles)
     {
         System.out.println(titles.getTitleName());
-        List<Informs> informs=new ArrayList<>();
+        List<Informs> informsList=new ArrayList<>();
+        List<tableTabData> threeInforms=new ArrayList<>();
         int ID=showService.SelectIdByTitle(titles.getTitleName());
-        informs=showService.SelectInformsById(ID);
-        return Result.SuccesswithObject("success",informs);
+        informsList=showService.SelectInformsById(ID);
+        for (int i=0;i<informsList.size();i++)
+        {
+            com.cidp.pojo.result.tableTabData threeList=new tableTabData();
+            if (i==0)
+            {
+                showService.updateCount();
+                threeList.setObject1(null);
+                threeList.setObject2(informsList.get(i));
+                threeList.setObject3(informsList.get(i+1));
+                threeInforms.add(threeList);
+            }
+            else if (i==informsList.size()-1)
+            {
+                showService.updateCount();
+                threeList.setObject1(informsList.get(i-1));
+                threeList.setObject2(informsList.get(i));
+                threeList.setObject3(null);
+                threeInforms.add(threeList);
+            }
+            else
+            {
+                showService.updateCount();
+                threeList.setObject1(informsList.get(i-1));
+                threeList.setObject2(informsList.get(i));
+                threeList.setObject3(informsList.get(i+1));
+                threeInforms.add(threeList);
+            }
+
+        }
+        return Result.SuccesswithObject("success",threeInforms);
     }
+
     @RequestMapping(value = "/showFirstPage",method = RequestMethod.POST)
     public Result showFirstPage() {
         System.out.println("首页显示导航栏");

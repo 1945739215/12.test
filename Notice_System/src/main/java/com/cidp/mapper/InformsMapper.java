@@ -2,10 +2,7 @@ package com.cidp.mapper;
 
 import com.cidp.pojo.Informs;
 import com.cidp.pojo.Tzgg;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 @Mapper
@@ -19,5 +16,6 @@ public interface InformsMapper extends  SysMapper<Informs>  {
     void deleteByID(@Param("titleId") int titleId);
 
 
-
+    @Update("update informs set count =count+1 ")
+    Integer updateCount1();
 }

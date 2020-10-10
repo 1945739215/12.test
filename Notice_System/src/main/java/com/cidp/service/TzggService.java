@@ -62,4 +62,7 @@ public class TzggService {
     }
 
 
+    public Integer updateCount() {
+        return tzggMapper.updateCount1();
+    }
 }

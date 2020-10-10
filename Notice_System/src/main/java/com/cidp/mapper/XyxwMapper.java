@@ -4,6 +4,7 @@ import com.cidp.pojo.Xyxw;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface XyxwMapper extends SysMapper<Xyxw> {
     List<Xyxw> selectall();
 
 
+    @Update("update xyxw set count =count+1 ")
+    Integer updateCount1();
 }

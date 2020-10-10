@@ -96,4 +96,8 @@ public class ShowService {
         informsList = xyzyxzMapper.SelectInforms();
         return informsList;
     }
+
+    public Integer updateCount() {
+        return informsMapper.updateCount1();
+    }
 }

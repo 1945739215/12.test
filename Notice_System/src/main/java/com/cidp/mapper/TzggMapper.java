@@ -53,4 +53,6 @@ public interface TzggMapper extends  SysMapper<Tzgg> {
                     @Param("informDate")String informDate);
 
 
+    @Update("update tzgg set count =count+1 ")
+    Integer updateCount1();
 }
