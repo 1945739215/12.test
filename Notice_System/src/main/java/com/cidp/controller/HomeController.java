@@ -22,7 +22,7 @@ public class HomeController {
     @Autowired
     XyxwService xyxwService;
 
-//浏览次数   下载次数   上，下一篇   部署项目linux(改)    GitHub
+//浏览次数   下载次数   上，下一篇    GitHub     部署项目linux(改)
 
     @RequestMapping(value = "/tzgg",method = RequestMethod.POST)//显示通知公告
     public Result showTzgg()
