@@ -23,7 +23,7 @@ public class AddController {
     TitlesService titlesService;
     @Autowired
     ShowService showService;
-    @Autowired
+
 
     //发布新模块
     @RequestMapping(value = "/CreateTable",method = RequestMethod.POST)

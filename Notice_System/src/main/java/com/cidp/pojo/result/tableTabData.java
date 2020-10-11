@@ -13,6 +13,16 @@ public class tableTabData {
     private Object object1;
     private Object object2;
     private Object object3;
+    private List<Titles> tableSidebarData;
+
+    private String titName;
+    private List<Titles> titleSidebarData;
+
+    private List<Informs> threeInformData;
+    private List<Tzgg> threeTzgz;
+
+
+
 
     public Object getObject1() {
         return object1;
@@ -38,13 +48,7 @@ public class tableTabData {
         this.object3 = object3;
     }
 
-    private List<Titles> tableSidebarData;
 
-    private String titName;
-    private List<Titles> titleSidebarData;
-
-    private List<Informs> threeInformData;
-    private List<Tzgg> threeTzgz;
 
     public List<Tzgg> getThreeTzgz() {
         return threeTzgz;
