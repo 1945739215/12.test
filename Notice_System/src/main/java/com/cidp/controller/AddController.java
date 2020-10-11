@@ -124,7 +124,7 @@ public class AddController {
         return Result.success();
     }
 
-    //合并侧边栏    注意可以跨导航栏合并   修改informs中的 侧边栏id
+    //合并侧边栏    注意可以跨导航栏合并   修改titles中的侧边栏名字和id   informs中的 侧边栏id
     @RequestMapping(value = "/mergeSide",method = RequestMethod.POST)
     public Result mergeSide(@RequestBody  List<Titles>  titlesId,String titleNewName)
     {
