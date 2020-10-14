@@ -118,28 +118,40 @@ public class AddController {
                 //根据侧边栏id  修改导航栏id和名字
                 titlesService.Update(titlesIdList.get(j).getTitlesId(), newTablesId, tableNewName);
             }
-            //根据导航栏id 修改导航栏id和名字
+            //根据导航栏id 修改导航栏id和名字    tables
             tableService.Update(tablesId.get(i).getTablesId(),newTablesId,tableNewName);
         }
         return Result.success();
     }
 
-    //合并侧边栏    注意可以跨导航栏合并   修改titles中的侧边栏名字和id   informs中的 侧边栏id
+    //合并侧边栏    注意可以跨导航栏合并,所以要改导航栏id和name
     @RequestMapping(value = "/mergeSide",method = RequestMethod.POST)
-    public Result mergeSide(@RequestBody  List<Titles>  titlesId,String titleNewName)
+    public Result mergeSide(@RequestBody  List<Titles>  titlesId,String tableNewName,String titleNewName)
     {
         System.out.println("合并侧边栏");
         for (int i=0;i<titlesId.size();i++)
         {
+                //获取最大的那个侧边栏id
+                int newTitlesId = titlesId.get(i = titlesId.size() - 1).getTitlesId();
+                //根据新的导航栏名字  查找导航栏id
+                int newTablesId= titlesService.SelectTablesidByTitlesid(titlesId.get(i).getTitlesId());
+                //判断是否存在
+                Integer titleNewName11=titlesService.SelectTitleNewName(titleNewName);
 
-            //获取最大的那个侧边栏id
-            int newTitlesId = titlesId.get(i = titlesId.size() - 1).getTitlesId();
 
-            //根据侧边栏id  修改侧边栏id和名字
-            titlesService.UpdateTitles(titlesId.get(i).getTitlesId(), newTitlesId, titleNewName);
-
-            //根据侧边栏id 修改侧边栏id
-            titlesService.UpdateInforms(titlesId.get(i).getTitlesId(),newTitlesId);
+                if(titleNewName11!=null) {//如果titleNewName存在，则获取titlesId
+                    //根据titleNewName获取 titlesId
+                    Integer OrionTitlesId=titlesService.SelectTitlesidByTitleNewName(titleNewName);
+                    //根据侧边栏id  修改侧边栏id和名字   导航栏id和名字
+                    titlesService.UpdateTitles(titlesId.get(i).getTitlesId(), OrionTitlesId, titleNewName, tableNewName, newTablesId);
+                    //根据侧边栏id 修改侧边栏id
+                    titlesService.UpdateInforms(titlesId.get(i).getTitlesId(), OrionTitlesId);
+                }else {//如果不存在，新写侧边栏名字，则获取最大的titlesId
+                    //根据侧边栏id  修改侧边栏id和名字   导航栏id和名字
+                    titlesService.UpdateTitles(titlesId.get(i).getTitlesId(), newTitlesId, titleNewName, tableNewName, newTablesId);
+                    //根据侧边栏id 修改侧边栏id
+                    titlesService.UpdateInforms(titlesId.get(i).getTitlesId(), newTitlesId);
+                }
         }
         return Result.success();
     }
