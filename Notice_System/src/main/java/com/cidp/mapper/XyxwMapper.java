@@ -16,4 +16,7 @@ public interface XyxwMapper extends SysMapper<Xyxw> {
 
     @Update("update xyxw set count =count+1 ")
     Integer updateCount1();
+
+    @Select("SELECT * FROM xyxw WHERE informName LIKE '%${informName}%'")
+    List<Xyxw> SelectByName(@Param("informName") String informName);
 }

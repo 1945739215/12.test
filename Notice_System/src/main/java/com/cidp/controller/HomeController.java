@@ -1,16 +1,15 @@
 package com.cidp.controller;
 
+import com.cidp.pojo.Informs;
 import com.cidp.pojo.Tzgg;
 import com.cidp.pojo.Xyxw;
 import com.cidp.pojo.result.Result;
 import com.cidp.pojo.result.tableTabData;
+import com.cidp.service.ShowService;
 import com.cidp.service.TzggService;
 import com.cidp.service.XyxwService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +21,8 @@ public class HomeController {
     TzggService tzggService;
     @Autowired
     XyxwService xyxwService;
+    @Autowired
+    ShowService showService;
 
 
     //浏览次数   下载次数   上，下一篇(显示object2的informname)   GitHub
@@ -118,5 +119,25 @@ public class HomeController {
         System.out.println(threeXyxw.size());
         return Result.SuccesswithObject("success",threeXyxw);
     }
+    @RequestMapping(value = "/SelectByName",method =RequestMethod.POST)//主页面进行模糊查询
+    public Result SelectByName(@RequestParam String InformName)
+    {
+        List<Tzgg>tzgzList=new ArrayList<>();
+        List<Xyxw>xyxwList=new ArrayList<>();
+        List<Informs>informsList=new ArrayList<>();
+        List<Object>finalList=new ArrayList<>();
+        tzgzList=tzggService.SelectByName(InformName);
+        xyxwList=xyxwService.SelectByName(InformName);
+        informsList=showService.SelectByName(InformName);
+        /*List集合无法直接强转，可消除泛型在赋值(如下方方式则不会报错)
+        List test=tzgzList;////
+        List<Object> testChange=test;
+        System.out.println(testChange.size());*/
+        finalList.addAll(tzgzList);//多个不同类型list集合整合也可用addAll方法到一个Object类型List
+        finalList.addAll(xyxwList);
+        finalList.addAll(informsList);
 
+        return Result.SuccesswithObject("success",finalList);
+
+    }
 }

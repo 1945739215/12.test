@@ -55,4 +55,6 @@ public interface TzggMapper extends  SysMapper<Tzgg> {
 
     @Update("update tzgg set count =count+1 ")
     Integer updateCount1();
+    @Select("SELECT * FROM tzgg WHERE informName LIKE '%${informName}%'")
+    List<Tzgg> SelectByName(@Param("informName") String informName);
 }

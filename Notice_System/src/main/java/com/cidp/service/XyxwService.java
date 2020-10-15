@@ -24,4 +24,8 @@ public class XyxwService {
     public Integer updateCount() {
         return xyxwMapper.updateCount1();
     }
+
+    public List<Xyxw> SelectByName(String informName) {
+        return xyxwMapper.SelectByName(informName);
+    }
 }
