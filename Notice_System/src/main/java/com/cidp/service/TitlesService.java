@@ -59,11 +59,27 @@ public class TitlesService {
         return titlesMapper.SelectIdById(tablesId);
     }
 
-    public Integer UpdateTitles(Integer titlesId, int newTitlesId, String titleNewName) {
-        return titlesMapper.UpdateTitles(titlesId,newTitlesId,titleNewName);
+    public Integer UpdateTitles(int titlesId, int newTitlesId, String titleNewName,String tableNewName,int newTablesId) {
+        return titlesMapper.UpdateTitles(titlesId,newTitlesId,titleNewName,tableNewName,newTablesId);
     }
 
     public Integer UpdateInforms(Integer titlesId, int newTitlesId) {
         return titlesMapper.UpdateInforms(titlesId,newTitlesId);
+    }
+
+    public int SelectTablesidByTitlesid(Integer titlesId) {
+        return titlesMapper.SelectTablesidByTitlesid(titlesId);
+    }
+
+    public int SelectTitlesidBytableNewName(String tableNewName) {
+        return titlesMapper.SelectTitlesidBytableNewName(tableNewName);
+    }
+
+    public Integer SelectTitlesidByTitleNewName(String titleNewName) {
+        return titlesMapper.SelectTitlesidByTitleNewName(titleNewName);
+    }
+
+    public Integer SelectTitleNewName(String titleNewName) {
+        return titlesMapper.SelectTitleNewName(titleNewName);
     }
 }

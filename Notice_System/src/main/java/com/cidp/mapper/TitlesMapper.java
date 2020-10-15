@@ -42,10 +42,24 @@ public interface TitlesMapper  extends SysMapper<Titles>{
     Integer Update(@Param("titlesId")int titlesId, @Param("newTablesId")int newTablesId,
                    @Param("tableNewName")String tableNewName);
 
-    @Update("update titles set titlesId =#{newTitlesId} and titleName =#{titleNewName} where titlesId=#{titlesId}")
-    Integer UpdateTitles(@Param("titlesId")Integer titlesId,@Param("newTitlesId") int newTitlesId,
-                         @Param("titleNewName")String titleNewName);
+    @Update("update titles set titlesId =#{newTitlesId} and titleName =#{titleNewName}" +
+            "and tableName=#{tableNewName} and tablesId=#{tablesId} where titlesId=#{titlesId}")
+    Integer UpdateTitles(@Param("titlesId")int titlesId,@Param("newTitlesId") int newTitlesId,
+                         @Param("titleNewName")String titleNewName, @Param("tableNewName")String tableNewName,
+                         @Param("newTablesId")int newTablesId );
 
     @Update("update informs set titlesId =#{newTitlesId} where titlesId=#{titlesId}")
     Integer UpdateInforms(Integer titlesId, int newTitlesId);
+
+    @Select("select tablesId from titles where titlesID=#{titlesId}")
+  int SelectTablesidByTitlesid(Integer titlesId);
+
+  @Select("select tablesId from titles where table=#{titlesId}")
+  int SelectTitlesidBytableNewName(String tableNewName);
+
+  @Select("select titlesId from titles where titleNewName=#{titleNewName}")
+  Integer SelectTitlesidByTitleNewName(String titleNewName);
+
+  @Select("select titleName from titles where titleNewName=#{titleNewName}")
+  Integer SelectTitleNewName(String titleNewName);
 }
