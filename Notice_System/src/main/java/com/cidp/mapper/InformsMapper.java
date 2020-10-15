@@ -19,6 +19,6 @@ public interface InformsMapper extends  SysMapper<Informs>  {
     @Update("update informs set count =count+1 ")
     Integer updateCount1();
 
-    @Select("SELECT * FROM informs WHERE informName LIKE '%${informName}%'")
-    List<Informs> SelectByName(String informName);
+    @Select("select * from informs where informName like '%${name}}%'")
+    List<Informs> SelectByName(@Param("name") String name);
 }

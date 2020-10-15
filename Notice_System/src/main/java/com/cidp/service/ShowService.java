@@ -101,7 +101,8 @@ public class ShowService {
         return informsMapper.updateCount1();
     }
 
-    public List<Informs> SelectByName(String informName) {
-        return informsMapper.SelectByName(informName);
+
+    public List<Informs> SelectByName(String name) {
+        return informsMapper.SelectByName(name);
     }
 }

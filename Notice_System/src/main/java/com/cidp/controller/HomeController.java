@@ -120,15 +120,16 @@ public class HomeController {
         return Result.SuccesswithObject("success",threeXyxw);
     }
     @RequestMapping(value = "/SelectByName",method =RequestMethod.POST)//主页面进行模糊查询
-    public Result SelectByName(@RequestParam String InformName)
+    public Result SelectByName(@RequestParam String name)
     {
+        System.out.println(name);
         List<Tzgg>tzgzList=new ArrayList<>();
         List<Xyxw>xyxwList=new ArrayList<>();
         List<Informs>informsList=new ArrayList<>();
         List<Object>finalList=new ArrayList<>();
-        tzgzList=tzggService.SelectByName(InformName);
-        xyxwList=xyxwService.SelectByName(InformName);
-        informsList=showService.SelectByName(InformName);
+        tzgzList=tzggService.SelectByName(name);
+        xyxwList=xyxwService.SelectByName(name);
+        informsList=showService.SelectByName(name);
         /*List集合无法直接强转，可消除泛型在赋值(如下方方式则不会报错)
         List test=tzgzList;////
         List<Object> testChange=test;
