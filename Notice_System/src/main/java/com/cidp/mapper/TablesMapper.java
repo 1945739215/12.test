@@ -12,8 +12,7 @@ public interface TablesMapper extends SysMapper<Tables> {
     @Select("SELECT * FROM TABLES")
     //@Select("SELECT * FROM TABLES where tablesId between 1  and  8")
     List<Tables> selectTables2();
-    @Select("SELECT * FROM TABLES")
-    List<Tables> selectTables();
+
 
     @Insert("INSERT INTO TABLES (tableName)VALUES(#{tableName})")
     void AddTables(@Param("tableName") String tableName);
@@ -30,5 +29,6 @@ public interface TablesMapper extends SysMapper<Tables> {
     @Update("update tables set tablesId =#{newTablesId} and tableName =#{tableNewName} where tablesId=#{tablesId}")
     Integer Update(@Param("tablesId")int tablesId, @Param("newTablesId")int newTablesId,
                    @Param("tableNewName")String tableNewName);
-
+    @Select("select * from tables where tablesId=#{tableId}")
+    Tables SelectTablesById(Integer tableId);
 }

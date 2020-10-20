@@ -6,12 +6,14 @@ import com.cidp.pojo.result.Result;
 import com.cidp.pojo.result.tableTabData;
 import com.cidp.service.ShowService;
 import com.cidp.service.TableService;
+import com.cidp.service.UserManageService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class ShowController {
     ShowService showService;
     @Autowired
     TableService tableService;
+    @Autowired
+    UserManageService userManageService;
 
     //分页
     @GetMapping("/page")
@@ -96,19 +100,19 @@ public class ShowController {
 
     //显示导航栏
     @RequestMapping(value = "/showTables",method = RequestMethod.POST)
-    public Result showTables()
+    public Result showTables(HttpSession session)
     {
+        System.out.println(session.getAttribute("user."));
         List<tableTabData>tableTabData=new ArrayList<>();
-        List<Tables> showTables=new ArrayList<>();
-        System.out.println("wahah");
-        showTables=showService.SelectTables();
-        System.out.println(showTables.size());
-        for (int i=0;i<showTables.size();i++)
-
+        User user=(User) session.getAttribute("user");
+        String userName=user.getUsername();
+        List<UserManage>tableIdList=new ArrayList<>();
+        tableIdList=userManageService.GettableIdList(userName);
+        for (int i=0;i<tableIdList.size();i++)
         {
             com.cidp.pojo.result.tableTabData tableTabData1=new com.cidp.pojo.result.tableTabData();
-            tableTabData1.setTabName(showService.SelectNameByID(showTables.get(i).getTablesId()));
-            tableTabData1.setTableSidebarData(showService.SelectTitlesByID(showTables.get(i).getTablesId()));
+            tableTabData1.setTabName(showService.SelectNameByID(tableIdList.get(i).getTableId()));
+            tableTabData1.setTableSidebarData(showService.SelectTitlesByID(tableIdList.get(i).getTableId()));
             tableTabData.add(tableTabData1);
         }
         System.out.println(tableTabData);
@@ -175,7 +179,7 @@ public class ShowController {
     public Result showFirstPage() {
         System.out.println("首页显示导航栏");
         List<Tables> tablesList = new ArrayList<>();
-        tablesList = tableService.selectAll();
+        tablesList = tableService.selectAll2();
         return Result.SuccesswithObject("success", tablesList);
     }
 
@@ -183,6 +187,7 @@ public class ShowController {
     @RequestMapping(value = "/showTop",method = RequestMethod.POST)
     public Result showTop() {
         System.out.println("顶部显示导航栏");
+
         List<Tables> tablesList = new ArrayList<>();
         tablesList = tableService.selectAll2();
         System.out.println(tablesList);

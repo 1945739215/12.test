@@ -20,6 +20,7 @@ public class User {
     private Integer sex;
     private Integer deptId;
     private String email;
+    private String token;
 
 
 
@@ -30,6 +31,14 @@ public class User {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Integer getSex() {

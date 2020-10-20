@@ -1,10 +1,16 @@
 package com.cidp.controller;
 
 
-public class Test {
-    public static void main(String[] args)  {
-        System.out.println("I can");
+import java.util.UUID;
 
+public class Test {
+
+    public static void main(String[] args)  {
+        for (int i=0;i<7;i++)
+        {
+            String token = UUID.randomUUID() + "";
+            System.out.println(token);
+        }
     }
 }
 

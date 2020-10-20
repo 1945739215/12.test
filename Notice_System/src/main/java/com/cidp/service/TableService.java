@@ -43,9 +43,7 @@ public class TableService {
         return tablesMapper.CheckExist(tableName);
     }
 
-    public List<Tables> selectAll() {
-        return tablesMapper.selectTables();
-    }
+
 
 
     public List<Tables> selectAll2() {

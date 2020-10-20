@@ -46,9 +46,6 @@ public class ShowService {
         return informsList;
     }
 
-    public List<Tables> SelectTables() {
-        return tablesMapper.selectTables();
-    }
 
     public int SelectIdByName(String tableName) {
         return tablesMapper.selectIdByName(tableName);
@@ -104,5 +101,10 @@ public class ShowService {
 
     public List<Informs> SelectByName(String name) {
         return informsMapper.SelectByName(name);
+    }
+
+
+    public Tables SelectById(Integer tableId) {
+        return tablesMapper.SelectTablesById(tableId);
     }
 }

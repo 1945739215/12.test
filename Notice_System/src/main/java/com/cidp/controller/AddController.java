@@ -3,14 +3,14 @@ package com.cidp.controller;
 
 import com.cidp.pojo.Tables;
 import com.cidp.pojo.Titles;
+import com.cidp.pojo.User;
 import com.cidp.pojo.result.ResponBean;
 import com.cidp.pojo.result.Result;
-import com.cidp.service.ShowService;
-import com.cidp.service.TableService;
-import com.cidp.service.TitlesService;
+import com.cidp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +23,14 @@ public class AddController {
     TitlesService titlesService;
     @Autowired
     ShowService showService;
+    @Autowired
+    UserManageService userManageService;
+    @Autowired
+    UserService userService;
 
 
     //发布新模块
-    @RequestMapping(value = "/CreateTable",method = RequestMethod.POST)
+    @RequestMapping(value = "/CreateTable",method = RequestMethod.POST)//总管理员发布新模块
     public Result CreateTable(@RequestBody ResponBean responBean)
     {
         if(tableService.SelectExit(responBean.getTableName())==1)
@@ -36,6 +40,14 @@ public class AddController {
         else
         {
             tableService.AddTable(responBean.getTableName());
+            int Id=tableService.SelectTableId(responBean.getTableName());
+            List<User> users=userService.SelectByType();
+            for (User username :users)
+            {
+                userManageService.AddNewTables(username.getUsername(),Id);
+                System.out.println(username.getUsername());
+            }
+
             return Result.success();
         }
 
@@ -77,6 +89,7 @@ public class AddController {
     {
         System.out.println("删除导航栏："+responBean.getTableName());
         int ID=tableService.SelectTableId(responBean.getTableName());//获取导航栏id
+        userManageService.DeleteByTableId(ID);
         List<Titles> titlesList=new ArrayList<>();
         titlesList=titlesService.selectAllTitlesNameById(ID);//获取所有侧边栏名字
         for (int i=0;i<titlesList.size();i++)

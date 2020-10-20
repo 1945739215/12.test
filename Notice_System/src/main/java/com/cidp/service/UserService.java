@@ -6,6 +6,7 @@ import com.cidp.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 
 @Service
@@ -33,11 +34,21 @@ public class UserService {
         return userMapper.SelectAdminbyUsername(Adminname);
     }
 
-    public void AddTeacher(String username, String password, String realName, Integer sex, Integer deptId, String email, Integer type) {
-        userMapper.AddTeacherToUser(username, password, realName, sex, deptId, email, type);
+
+
+    public String getToken(String username, String password) {
+        return userMapper.getToken(username,password);
     }
 
-    public void AddAdmin(String username, String password, String realName, Integer sex, Integer deptId, String email, Integer type) {
-        userMapper.AddAdminToUser(username, password, realName, sex, deptId, email, type);
+    public User SelectByToken(String token) {
+        return userMapper.SelectByToken(token);
+    }
+
+    public List<User> SelectByType() {
+        return userMapper.SelectByType();
+    }
+
+    public void AddTeacher(String username, String password, String realName, Integer sex, Integer deptId, String email, Integer type, String token) {
+        userMapper.AddAdminToUser(username,password,realName,sex,deptId,email,type,token);
     }
 }

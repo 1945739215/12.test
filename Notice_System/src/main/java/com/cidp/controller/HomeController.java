@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping(value = "/homePage")
 public class HomeController {
     @Autowired
     TzggService tzggService;

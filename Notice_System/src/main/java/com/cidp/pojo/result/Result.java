@@ -5,6 +5,7 @@ public class Result {
     private String msg;
     private Object object;
 
+
     private static Result responseResult = new Result();
 
     private Result() {
@@ -34,6 +35,8 @@ public class Result {
     public static Result error2(String error) {
         return getInstance(1, error,null);
     }
+    public static Result Success(Object data){responseResult.code=200;responseResult.msg="登录成功";responseResult.object=data;return responseResult;}
+    public static Result Error(){responseResult.code=400;return responseResult;}
 
     public static Result SuccesswithObject(String msg, Object object) {
         return getInstance(200,msg,object);
