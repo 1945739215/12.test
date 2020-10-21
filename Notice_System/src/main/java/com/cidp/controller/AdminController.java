@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 import java.security.PublicKey;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class AdminController {
     @Autowired
     TableService tableService;
 
-    @RequestMapping(value = "/addTea")//增加教师
+    @RequestMapping(value = "/addTea",method = RequestMethod.POST)//增加教师
     public Result addTea(@RequestBody User user) {
         System.out.println(user);
        /* if (user.getType() == 1 && user.getUsername() != null) {
@@ -65,16 +66,26 @@ public class AdminController {
 
     }*/
 
-   @PostMapping(value = "/UpdateTea")//修改二级管理员管理模块
+   /*@RequestMapping(value = "/UpdateTea",method = RequestMethod.POST)//修改二级管理员管理模块
     public Result UpdateTea(UserManageVO userManageVO)
    {
-        userManageService.DeleteByUser(userManageVO.getUserName());
-        for(Object list:userManageVO.getUserManageList())
-        {
-           int Tid=tableService.SelectTableId((String) list);
-           userManageService.AddNewTables(userManageVO.getUserName(),Tid);
-        }
-        return Result.success();
-   }
 
+       System.out.println(userManageVO);
+       System.out.println(userManageVO.getUserManageList());
+        userManageService.DeleteByUser(userManageVO.getUserName());
+        for (int i=0;i<userManageVO.getUserManageList().size();i++)
+        {
+            String name= userManageVO.getUserManageList().get(i);
+            int ID=tableService.SelectTableId(name);
+            userManageService.AddNewTables(userManageVO.getUserName(),ID);
+        }
+        *//*for(Object list:userManageVO.getUserManageList()) {
+            int Tid = tableService.SelectTableId((String) list);
+            System.out.println((String) list);
+            userManageService.AddNewTables(userManageVO.getUserName(), Tid);
+        }*//*
+
+        return Result.Success(userManageVO);
+   }
+*/
 }
