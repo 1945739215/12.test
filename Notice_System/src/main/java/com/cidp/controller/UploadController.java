@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,8 +85,14 @@ public class UploadController {
                     System.out.println("文件为空");
                     isSuccess = false;
                 }
-
-
+            /*HttpServletResponse res = null;
+            HttpServletRequest req =null;
+            res.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
+            res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACES");
+            res.setHeader("Access-Control-Max-Age", "3600");
+            res.setHeader("Access-Control-Allow-Headers", "Accept,Origin,X-Requested-With,Content-Type,X-Auth-Token");
+            res.setHeader("Access-Control-Allow-Credentials", "true");
+            //chain.doFilter(request, response);*/
             return isSuccess ? Result.success() : Result.error("error");
         }
 
@@ -184,16 +192,7 @@ public class UploadController {
 
 
 
-    //显示上传的文件   （url:学院资源下载）
-    @RequestMapping(value = "/xyzyxzfile",method = RequestMethod.POST)
-    public Result showXyzyxz( String parts)
-    {
-        System.out.println(parts);
-        List<Xyzyxz> showXyzyxz=new ArrayList<>();
-        showXyzyxz = loadService.SelectByParts(parts);
-        System.out.println(showXyzyxz);
-        return Result.SuccesswithObject("success",showXyzyxz);
-    }
+
 
     //根据id删除
     @RequestMapping(value = "/DeleteXyzy", method = RequestMethod.POST)

@@ -3,8 +3,10 @@ package com.cidp.controller;
 import com.cidp.pojo.Informs;
 import com.cidp.pojo.Tzgg;
 import com.cidp.pojo.Xyxw;
+import com.cidp.pojo.Xyzyxz;
 import com.cidp.pojo.result.Result;
 import com.cidp.pojo.result.tableTabData;
+import com.cidp.service.LoadService;
 import com.cidp.service.ShowService;
 import com.cidp.service.TzggService;
 import com.cidp.service.XyxwService;
@@ -24,14 +26,16 @@ public class HomeController {
     XyxwService xyxwService;
     @Autowired
     ShowService showService;
+    @Autowired
+    LoadService loadService;
 
 
     //浏览次数   下载次数   上，下一篇(显示object2的informname)   GitHub
     //下载，上传分区，挪位置，合并，搜索
-    //权限   部署项目linux(改)
+    //权限  部署项目linux(改)
 
-    //浏览次数 ， 上传多加一个parts，显示的时候传值 parts
-    // 导航栏合并 多选传多个tablesid的数组，和新的tablesname
+    //浏览次数 ，上传多加一个parts，显示的时候传值 parts
+    //导航栏合并 多选传多个tablesid的数组，和新的tablesname
     //侧边栏合并 多选传多个titlesId数组，和（复选框，已有的）合并到的tableNewName，和（新的或者原来的  自己打字）titleNewName，
 
 
@@ -141,5 +145,16 @@ public class HomeController {
 
         return Result.SuccesswithObject("success",finalList);
 
+    }
+
+    //显示上传的文件   （url:学院资源下载）
+    @RequestMapping(value = "/xyzyxzfile",method = RequestMethod.POST)
+    public Result showXyzyxz( String parts)
+    {
+        System.out.println(parts);
+        List<Xyzyxz> showXyzyxz=new ArrayList<>();
+        showXyzyxz = loadService.SelectByParts(parts);
+        System.out.println(showXyzyxz);
+        return Result.SuccesswithObject("success",showXyzyxz);
     }
 }
