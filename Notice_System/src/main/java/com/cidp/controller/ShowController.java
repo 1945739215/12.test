@@ -142,13 +142,14 @@ public class ShowController {
         List<Informs> informsList=new ArrayList<>();
         List<tableTabData> threeInforms=new ArrayList<>();
         int ID=showService.SelectIdByTitle(titles.getTitleName());
+        showService.updateCount();
         informsList=showService.SelectInformsById(ID);
         for (int i=0;i<informsList.size();i++)
         {
             com.cidp.pojo.result.tableTabData threeList=new tableTabData();
             if (i==0)
             {
-                showService.updateCount();
+
                 threeList.setObject1(null);
                 threeList.setObject2(informsList.get(i));
                 threeList.setObject3(informsList.get(i+1));
@@ -156,7 +157,7 @@ public class ShowController {
             }
             else if (i==informsList.size()-1)
             {
-                showService.updateCount();
+
                 threeList.setObject1(informsList.get(i-1));
                 threeList.setObject2(informsList.get(i));
                 threeList.setObject3(null);
@@ -164,7 +165,7 @@ public class ShowController {
             }
             else
             {
-                showService.updateCount();
+
                 threeList.setObject1(informsList.get(i-1));
                 threeList.setObject2(informsList.get(i));
                 threeList.setObject3(informsList.get(i+1));

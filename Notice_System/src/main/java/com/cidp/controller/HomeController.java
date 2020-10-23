@@ -44,6 +44,7 @@ public class HomeController {
     {
         List<Tzgg> showTzgg=new ArrayList<>();//接收通知公告
         List<tableTabData>tableTabData=new ArrayList<>();
+        tzggService.updateCount();
         showTzgg=tzggService.Selectall();
         // System.out.println(showTzgg.size());
         for(int i=0;i<showTzgg.size();i++)
@@ -51,7 +52,7 @@ public class HomeController {
             com.cidp.pojo.result.tableTabData threeList=new tableTabData();
             if(i==0)
             {
-                tzggService.updateCount();
+
                 threeList.setObject1(null);
                 threeList.setObject2(showTzgg.get(i));
                 threeList.setObject3(showTzgg.get(i+1));
@@ -60,7 +61,7 @@ public class HomeController {
             else if (i==showTzgg.size()-1)
             {
                 //System.out.println(i);
-                tzggService.updateCount();
+
                 threeList.setObject1(showTzgg.get(i-1));
                 threeList.setObject2(showTzgg.get(i));
                 threeList.setObject3(null);
@@ -69,7 +70,7 @@ public class HomeController {
             else
             {
                 //System.out.println(i);
-                tzggService.updateCount();
+
                 threeList.setObject1(showTzgg.get(i-1));
                 threeList.setObject2(showTzgg.get(i));
                 threeList.setObject3(showTzgg.get(i+1));
@@ -88,6 +89,7 @@ public class HomeController {
     public Result showXyxw()
     {
         List<Xyxw> showXyxw=new ArrayList<>();//接收学院新闻
+        xyxwService.updateCount();
         showXyxw=xyxwService.Selectall();
         List<tableTabData>threeXyxw=new ArrayList<>();
         //System.out.println(showXyxw.size());
@@ -97,14 +99,14 @@ public class HomeController {
             if(i==0)
             {
                 threeList.setObject1(null);
-                xyxwService.updateCount();
+
                 threeList.setObject2(showXyxw.get(i));
                 threeList.setObject3(showXyxw.get(i+1));
                 threeXyxw.add(threeList);
             }
             else if (i==showXyxw.size()-1)
             {
-                xyxwService.updateCount();
+
                 threeList.setObject1(showXyxw.get(i-1));
                 threeList.setObject2(showXyxw.get(i));
                 threeList.setObject3(null);
@@ -114,7 +116,7 @@ public class HomeController {
             else
             {
                 //System.out.println(i);
-                xyxwService.updateCount();
+
                 threeList.setObject1(showXyxw.get(i-1));
                 threeList.setObject2(showXyxw.get(i));
                 threeList.setObject3(showXyxw.get(i+1));
