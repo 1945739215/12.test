@@ -11,7 +11,7 @@ import java.util.List;
 public interface LoadMapper extends  SysMapper<Xyzyxz>{
 
     @Insert(" INSERT into Xyzyxz(fileName,fileDate,fileUrl,fileTitle,parts) values(#{fileName}," +
-            "#{fileDate},#{fileUrl},#{fileTitle}) ,#{parts}")
+            "#{fileDate},#{fileUrl},#{fileTitle},#{parts}) ")
     Integer insertfile(@Param("fileName")String fileName,@Param("fileDate")String fileDate,
                        @Param("fileUrl") String fileUrl,@Param("fileTitle")String fileTitle,
                        @Param("parts")String parts);

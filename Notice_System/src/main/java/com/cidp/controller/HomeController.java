@@ -127,7 +127,7 @@ public class HomeController {
         return Result.SuccesswithObject("success",threeXyxw);
     }
     @RequestMapping(value = "/SelectByName",method =RequestMethod.POST)//主页面进行模糊查询
-    public Result SelectByName(@RequestParam String name)
+    public Result SelectByName( String name)
     {
         System.out.println(name);
         List<Tzgg>tzgzList=new ArrayList<>();
@@ -150,9 +150,11 @@ public class HomeController {
     }
 
     //显示上传的文件   （url:学院资源下载）
-    @RequestMapping(value = "/xyzyxzfile",method = RequestMethod.POST)
+    @RequestMapping(value = "/xyzyxzfile",method = RequestMethod.GET)
+    //public Result showXyzyxz( @RequestBody Xyzyxz xyzyxz)
     public Result showXyzyxz( String parts)
     {
+        //System.out.println(xyzyxz);
         System.out.println(parts);
         List<Xyzyxz> showXyzyxz=new ArrayList<>();
         showXyzyxz = loadService.SelectByParts(parts);

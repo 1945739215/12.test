@@ -85,14 +85,7 @@ public class UploadController {
                     System.out.println("文件为空");
                     isSuccess = false;
                 }
-            /*HttpServletResponse res = null;
-            HttpServletRequest req =null;
-            res.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
-            res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACES");
-            res.setHeader("Access-Control-Max-Age", "3600");
-            res.setHeader("Access-Control-Allow-Headers", "Accept,Origin,X-Requested-With,Content-Type,X-Auth-Token");
-            res.setHeader("Access-Control-Allow-Credentials", "true");
-            //chain.doFilter(request, response);*/
+
             return isSuccess ? Result.success() : Result.error("error");
         }
 

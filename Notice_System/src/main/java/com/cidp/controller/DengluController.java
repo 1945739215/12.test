@@ -21,6 +21,7 @@ public class DengluController {
     public Result Denglu(@RequestBody User user, HttpSession session)
     {
         session.setAttribute("user",user);
+        session.setMaxInactiveInterval(360000);
         System.out.println(user);
         System.out.println(session.getAttribute(user.getUsername()));
         System.out.println(userService.checkUser(user.getUsername(),user.getPassword()));
